@@ -84,7 +84,8 @@ void main()
 
         if(check==0)
         {
-            printf("\nNot in safe state");
+            printf("\nNOT SAFE STATE");
+            break;
         }
     }
 }

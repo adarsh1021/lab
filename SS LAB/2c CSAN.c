@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 void  main() {
-    int n, i, j, head, max_head, disk_queue[50], temp, head_index;
+    int n, i, j, head, max_head, disk_queue[50], temp, head_index, left_right, seek;
     printf("Enter the current head position: ");
     scanf("%d", &head);
     printf("Enter the max head position: ");
@@ -33,14 +33,38 @@ void  main() {
         if (disk_queue[i] == head) head_index = i;
     }
 
-    // Towards right
-    for (i=head_index; i<n; i++) printf("%d->", disk_queue[i]);
+    // Get the index of current head position
+    for (i=0; i<n; i++) {
+        if (disk_queue[i] == head) {
+            head_index = i;
+            if ((disk_queue[head_index] - disk_queue[i-1]) < (disk_queue[i+1] - disk_queue[head_index])) left_right = 0; // left
+            else left_right = 1; // right
+        }
+    }
 
-    // Go back to 0
-    printf("0->");
+    if (left_right == 0) {
+        // Towards left
+        for (i=head_index; i>=0; i--) printf("%d->", disk_queue[i]);
+        // Reach 0
+        printf("0->");
+        // Towards left
+        for (i=n-1; i>head_index; i--) printf("%d->", disk_queue[i]);
 
-    // Towards right
-    for (i=0; i<head_index; i++) printf("%d->", disk_queue[i]);
+	seek = head + (100 - disk_queue[head_index + 1]);
+    }
+    else {
+        // Towards right
+        for (i=head_index; i<n; i++) printf("%d->", disk_queue[i]);
 
+        // Go back to 0
+        printf("0->");
+
+        // Towards right
+        for (i=0; i<head_index; i++) printf("%d->", disk_queue[i]);
+
+	seek = (100 - head) + disk_queue[head_index - 1];
+    }
+    
+    printf("Average Seek time : %d", (seek / (n-2)));
 }
 
