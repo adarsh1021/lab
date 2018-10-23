@@ -34,7 +34,7 @@ void main() {
 #define SIZE 10
 
 void main() {
-    int n, i, j;
+    int n, i, j, c;
     char files[SIZE][10];
     char fname[10];
 
@@ -46,15 +46,32 @@ void main() {
         scanf("%s", files[i]);
     }
 
-    printf("Enter file to delete: ");
-    scanf("%s", fname);
+    printf("1. Search\n2. Delete\n3. Display\n");
+    scanf("%d", &c);
+    if (c == 1) {
+        printf("Enter file to search: ");
+        scanf("%s", fname);
+        for (i=0; i<n; i++) if (strcmp(fname, files[i]) == 0) printf("Found at position %d", i+1);
+    }
+    else if (c == 2){
 
-    for (i=0; i<n; i++) {
-        if (strcmp(fname, files[i]) == 0) {
-            for (j=i; j<n-1; j++)
-            strcpy(file[i], file[i+1])
-            printf("%d", i);
-            break;
+        printf("Enter file to delete: ");
+        scanf("%s", fname);
+
+        for (i=0; i<n; i++) {
+            if (strcmp(fname, files[i]) == 0) {
+                for (j=i; j<n-1; j++) strcpy(files[j], files[j+1]);
+                break;
+            }
+        }
+
+        for (i=0; i<n; i++) {
+            printf("%s\n", files[i]);
+        }
+    }
+    else {
+        for (i=0; i<n; i++) {
+            printf("%s\n", files[i]);
         }
     }
 }
